@@ -52,6 +52,7 @@ jobs:
             -pl :infinispan-component-annotations,:infinispan-logging-annotations,:infinispan-checkstyle,commons,:infinispan-defaults-maven-plugin,:infinispan-logging-processor,:infinispan-commons-spi,:infinispan-component-processor,:infinispan-commons-test,:infinispan-api,:infinispan-commons
 
       - name: Archive commit sha
+        if: (success() || failure())
         run: |
            echo -n $GITHUB_SHA > github-sha.txt
 
