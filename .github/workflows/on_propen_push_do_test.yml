@@ -51,6 +51,10 @@ jobs:
             -fae -Dansi.strip=true
             -pl :infinispan-component-annotations,:infinispan-logging-annotations,:infinispan-checkstyle,commons,:infinispan-defaults-maven-plugin,:infinispan-logging-processor,:infinispan-commons-spi,:infinispan-component-processor,:infinispan-commons-test,:infinispan-api,:infinispan-commons
 
+      - name: Archive commit sha
+        run: |
+           echo -n $GITHUB_SHA > github-sha.txt
+
       - name: Archive surefire test report
         if: (success() || failure())
         uses: actions/upload-artifact@v4
@@ -60,6 +64,7 @@ jobs:
             **/surefire-reports/TEST-*.xml
             **/*.dump*
             **/hs_err_*
+            github-sha.txt
 
 # Create artifact with branch name and surefile flaky test report
       - name: Check flaky report existence
@@ -77,8 +82,8 @@ jobs:
           EVENT_NUMBER: ${{ github.event.number }}
         run: |
           echo -n $TARGET_BRANCH > target-branch.txt
-          echo -n $EVENT_NAME > event_name.txt
-          echo -n $EVENT_NUMBER > event_number.txt
+          echo -n $EVENT_NAME > event-name.txt
+          echo -n $EVENT_NUMBER > event-number.txt
 
       - name: Archive flaky test report
         if: (success() || failure()) && steps.check_flaky_report.outputs.files_exists == 'true'

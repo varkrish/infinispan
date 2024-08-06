@@ -43,11 +43,17 @@ jobs:
         - if: steps.download-artifact.outputs.result == 'Report Found'
           name: Unzip artifact
           run: unzip surefire-test-report.zip
+        - name: Get github sha
+          id: github_sha
+          uses: juliangruber/read-file-action@v1
+          with:
+            path: ./github-sha.txt
 
         - name: Publish Test Report
           if: success() || failure()
           uses: ScaCap/action-surefire-report@v1
           with:
+            commit: ${{ steps.github_sha.outputs.content }}
             check_name: check-ci test report
             report_paths: |
               **/surefire-reports/TEST-*.xml
