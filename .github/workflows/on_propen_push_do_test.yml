@@ -54,7 +54,7 @@ jobs:
       - name: Archive commit sha
         if: (success() || failure())
         run: |
-           echo -n $GITHUB_SHA > github-sha.txt
+           echo -n ${{ github.event.pull_request.head.sha }} > github-sha.txt
 
       - name: Archive surefire test report
         if: (success() || failure())
