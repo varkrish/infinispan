@@ -9,9 +9,9 @@ jobs:
       runs-on: ubuntu-latest
       steps:
 
-# Downloading flaky artifact containing
-# zip file with flaky test reports and file
-# containing PR target branch
+# Downloading surefire report artifact containing
+# zip file with reports and file
+# containing commit sha
         - name: Download artifact
           id: download-artifact
           uses: actions/github-script@v7

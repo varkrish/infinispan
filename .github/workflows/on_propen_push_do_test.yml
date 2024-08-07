@@ -51,10 +51,19 @@ jobs:
             -fae -Dansi.strip=true
             -pl :infinispan-component-annotations,:infinispan-logging-annotations,:infinispan-checkstyle,commons,:infinispan-defaults-maven-plugin,:infinispan-logging-processor,:infinispan-commons-spi,:infinispan-component-processor,:infinispan-commons-test,:infinispan-api,:infinispan-commons
 
-      - name: Archive commit sha
-        if: (success() || failure())
+      - name: Archive commit sha PR
+        if: >
+          (success() || failure()) &&
+          github.event_name == 'pull_request'
         run: |
            echo -n ${{ github.event.pull_request.head.sha }} > github-sha.txt
+
+      - name: Archive commit sha push
+        if: >
+          (success() || failure()) &&
+          github.event_name == 'push'
+        run: |
+           echo -n $GITHUB_SHA > github-sha.txt
 
       - name: Archive surefire test report
         if: (success() || failure())
