@@ -53,7 +53,7 @@ public class MutableIntSetTest {
    private static double r;
    private static double r1;
    @Test
-   public void testFail1() {
+   public void testFail1FromInfinispan() {
             fail("oops fail");
    }
    @Test
