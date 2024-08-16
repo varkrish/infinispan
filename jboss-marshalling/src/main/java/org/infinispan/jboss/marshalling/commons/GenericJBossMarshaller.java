@@ -40,10 +40,6 @@ public final class GenericJBossMarshaller extends AbstractJBossMarshaller {
               new DefaultContextClassResolver(classLoader) :
               new CheckedClassResolver(classWhiteList, classLoader)
       );
-      baseCfg.setClassResolver(classWhiteList == null ?
-            new DefaultContextClassResolver(classLoader) :
-            new CheckedClassResolver(classWhiteList, classLoader)
-      );
    }
 
    @Override
